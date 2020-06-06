@@ -1,7 +1,7 @@
 #
 # This file is part of the PyMeasure package.
 #
-# Copyright (c) 2013-2019 PyMeasure Developers
+# Copyright (c) 2013-2020 PyMeasure Developers
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -56,7 +56,7 @@ class VISAAdapter(Adapter):
         self.resource_name = resourceName
         self.manager = visa.ResourceManager(visa_library)
         safeKeywords = ['resource_name', 'timeout',
-                        'chunk_size', 'lock', 'delay', 'send_end',
+                        'chunk_size', 'lock', 'query_delay', 'send_end',
                         'values_format', 'read_termination', 'write_termination']
         kwargsCopy = copy.deepcopy(kwargs)
         for key in kwargsCopy:
