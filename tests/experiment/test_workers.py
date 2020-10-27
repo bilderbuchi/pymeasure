@@ -21,6 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+import importlib
 
 import pytest
 import os
@@ -69,3 +70,24 @@ def test_worker_finish():
 
     new_results = Results.load(file, procedure_class=RandomProcedure)
     assert new_results.data.shape == (100, 2)
+
+
+def test_zmq_serialisation():
+    """Trigger the ZMQ serialisation error from
+    https://github.com/ralph-group/pymeasure/issues/168
+    """
+    # This bug only shows if cloudpickle is installed
+    if not importlib.util.find_spec('cloudpickle'):
+        pytest.skip('Cloudpickle not found, skipping test that only shows '
+                    'if cloudpickle is available')
+    procedure = RandomProcedure()
+    file = tempfile.mktemp()
+    results = Results(procedure, file)
+    # If we define a port here we get ZMQ communication
+    # if cloudpickle is installed
+    worker = Worker(results, port=5888)
+    worker.start()
+    worker.run()
+    worker.stop()
+    assert worker.should_stop()
+    worker.join()
