@@ -81,8 +81,8 @@ jobs:
       - name: Run pytest with xvfb
         shell: bash -l {0}
         if: runner.os == 'Linux'
-        run: xvfb-run -a pytest
+        run: xvfb-run -a pytest -rsx
       - name: Run pytest 
         shell: bash -l {0}
         if: runner.os != 'Linux'
-        run: pytest
+        run: pytest -rsx

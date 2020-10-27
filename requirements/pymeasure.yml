@@ -3,6 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - cloudpickle=1.6.0
   - numpy=1.19.2
   - pandas=1.1.3
   - pyqt=5.12.3
@@ -11,4 +12,5 @@ dependencies:
   - pytest=6.1.1
   - pytest-qt=3.3.0
   - pyvisa=1.10.1
+  - pyzmq=19.0.2
   - qt=5.12.9
